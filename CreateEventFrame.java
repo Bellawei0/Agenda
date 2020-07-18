@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author
+ * A class that represents frame for creating a new Event
+ */
 public class CreateEventFrame extends JFrame{
     public CreateEventFrame() {
         JFrame frame = new JFrame("Create a New Event");
