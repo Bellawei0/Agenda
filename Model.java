@@ -9,24 +9,30 @@ import javax.swing.event.ChangeListener;
  *
  */
 public class Model {
-	TreeMap<LocalDateTime,String>data;
+	TreeMap<LocalDateTime,Event>data;
 	 ArrayList<ChangeListener> listeners;
 	
-	public Model(TreeMap<LocalDateTime,String>d) {
+	 //Data
+	public Model(TreeMap<LocalDateTime,Event>d) {
 		data=d;
 		listeners= new ArrayList<ChangeListener>();
 	}
 
-	public ArrayList<String> getData(){
-		return (ArrayList<String>) (data.clone());
+	//returns the event
+	public ArrayList<Event> getData(){
+		return (ArrayList<Event>) (data.clone());
 	}
 	
+	//need to be added to panels so model updates any changes
 	 public void attach(ChangeListener c)
 	   {
 	      listeners.add(c);
 	   }
 	
-	public void update(LocalDateTime t,String s) {
+	 //add the Events to the data
+	public void update(LocalDateTime t,Event s) {
 		data.put(t, s);
 	}
+	
+
 }
