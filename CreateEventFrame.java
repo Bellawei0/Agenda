@@ -2,8 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author
- * A class that represents frame for creating a new Event
+ * A class that represents a frame for creating a new Event
+ * @author Jyoti Suri, Bella wei, Jennifer yang
+ * @Version 1.0
  */
 public class CreateEventFrame extends JFrame{
     public CreateEventFrame() {
@@ -14,7 +15,6 @@ public class CreateEventFrame extends JFrame{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300,200);
         frame.setVisible(true);
-
 
         JLabel eventName = new JLabel("Event Name: ");
         JTextField eventNameInput = new JTextField(15);
@@ -33,7 +33,6 @@ public class CreateEventFrame extends JFrame{
 
         JButton saveBtn = new JButton("Save");
         JButton cancelBtn = new JButton("Cancel");
-
 
         panel.add(eventName);
         panel.add(eventNameInput);
