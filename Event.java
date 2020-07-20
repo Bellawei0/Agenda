@@ -1,31 +1,23 @@
-import java.time.LocalDate;
-
 /**
  * A Class represents an Event
- * @author
- * @version
+ * @author Jyoti Suri, Bella wei, Jennifer yang
+ * @Version 1.0
  */
 public class Event {
-    private String eventName;
-    private int year;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private TimeInterval t;
+    String eventName;
+    int year;
+    int startingMonth;
+    int endingMonth;
+    int startingTime;
+    int endingTime;
 
-    /**
-     * Constructor of an Event
-     * @param eventName the name of an event
-     * @param year      the year of an event
-     * @param startDate the starting date  of an event
-     * @param endDate   the ending date of an event
-     * @param t         the time interval of an event
-     */
-    public Event(String eventName, int year, LocalDate startDate, LocalDate endDate, TimeInterval t) {
+    public Event(String eventName, int year, int startingMonth, int endingMonth, int startingTime, int endingTime) {
         this.eventName = eventName;
         this.year = year;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.t = t;
+        this.startingMonth = startingMonth;
+        this.endingMonth = endingMonth;
+        this.startingTime = startingTime;
+        this.endingTime = endingTime;
     }
 
     public String getEventName() {
@@ -44,27 +36,35 @@ public class Event {
         this.year = year;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public int getStartingMonth() {
+        return startingMonth;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStartingMonth(int startingMonth) {
+        this.startingMonth = startingMonth;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public int getEndingMonth() {
+        return endingMonth;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void setEndingMonth(int endingMonth) {
+        this.endingMonth = endingMonth;
     }
 
-    public TimeInterval getT() {
-        return t;
+    public int getStartingTime() {
+        return startingTime;
     }
 
-    public void setT(TimeInterval t) {
-        this.t = t;
+    public void setStartingTime(int startingTime) {
+        this.startingTime = startingTime;
+    }
+
+    public int getEndingTime() {
+        return endingTime;
+    }
+
+    public void setEndingTime(int endingTime) {
+        this.endingTime = endingTime;
     }
 }
