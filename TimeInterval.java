@@ -1,40 +1,28 @@
-import java.time.LocalTime;
-
 /**
  * A Class represents TimeInterval of an Event
- * @author
- * @version
+ * @author Jyoti Suri, Bella wei, Jennifer yang
+ * @Version 1.0
  */
 
 public class TimeInterval implements Comparable<TimeInterval>{
-    private LocalTime startingTime;
-    private LocalTime endingTime;
+    private int startingTime;
+    private int endingTime;
 
     /**
      * Constructor of TimeInterval
      * @param startingTime the starting time of an event
      * @param endingTime   the ending time of an event
      */
-    public TimeInterval(LocalTime startingTime, LocalTime endingTime) {
+    public TimeInterval(int startingTime, int endingTime) {
         this.startingTime = startingTime;
         this.endingTime = endingTime;
     }
 
-    /**
-     * The method is to check if two events are conflict
-     * @param newTi  TimeInterval of a new Event
-     * @return true
-     */
-    public boolean checkConflict(TimeInterval newTi){
-        if(endingTime.isBefore(startingTime) || startingTime.isAfter(endingTime)){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
     @Override
     public int compareTo(TimeInterval o) {
-        return startingTime.compareTo(o.startingTime);
+        return 0;
     }
+
+
+
 }

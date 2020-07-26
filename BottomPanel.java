@@ -10,7 +10,8 @@ public class BottomPanel extends JPanel{
 
 	public BottomPanel() {
 		calendarPanel = new CalendarPanel();
-		eventsPanel = new EventsPanel();
+		Model model = new Model();
+		eventsPanel = new EventsPanel(model);
 		
 		// TODO Auto-generated constructor stub
 		setLayout(new GridLayout(1, 2));

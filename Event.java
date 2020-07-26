@@ -11,6 +11,15 @@ public class Event {
     int startingTime;
     int endingTime;
 
+    /**
+     *
+     * @param eventName
+     * @param year
+     * @param startingMonth
+     * @param endingMonth
+     * @param startingTime
+     * @param endingTime
+     */
     public Event(String eventName, int year, int startingMonth, int endingMonth, int startingTime, int endingTime) {
         this.eventName = eventName;
         this.year = year;
