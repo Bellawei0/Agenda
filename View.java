@@ -1,34 +1,28 @@
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
-/*
- * Main View in GUI
- * Contains OptionsPanel and Bottom Panel
+/**
+ * Main View of the MVC application: Contains OptionsPane and Bottom Panel
+ * @author Jyoti Suri, Bella wei, Jennifer yang
+ * @Version 1.0
  */
 public class View extends JFrame{
 
 	public View() {
 		// TODO Auto-generated constructor stub
 		GridBagConstraints c = new GridBagConstraints();
-		OptionsPanel optionsPanel = new OptionsPanel();
+		Model model = new Model();
+		OptionsPanel optionsPanel = new OptionsPanel(model);
+
 		BottomPanel bottomPanel = new BottomPanel();
+		EventsPanel eventsPanel = new EventsPanel(model);
+		model.attach(eventsPanel);
 		
-		setLayout(new GridLayout(2, 1));
+		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(1000,600));
 		
-		/*
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 0.2;
-		add(optionsPanel, c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 0.8;
-		add(bottomPanel, c);
-		*/
-		
-		add(optionsPanel);
-		add(bottomPanel);
+		add(optionsPanel,BorderLayout.NORTH);
+		add(bottomPanel,BorderLayout.CENTER);
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,6 +31,7 @@ public class View extends JFrame{
 	
 	public static void main(String[] args) {
 		View frame = new View();
+
 	}
 
 }
