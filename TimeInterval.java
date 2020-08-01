@@ -4,25 +4,39 @@
  * @Version 1.0
  */
 
-public class TimeInterval implements Comparable<TimeInterval>{
+public class TimeInterval  {
     private int startingTime;
     private int endingTime;
 
-    /**
-     * Constructor of TimeInterval
-     * @param startingTime the starting time of an event
-     * @param endingTime   the ending time of an event
-     */
     public TimeInterval(int startingTime, int endingTime) {
         this.startingTime = startingTime;
         this.endingTime = endingTime;
     }
 
-    @Override
-    public int compareTo(TimeInterval o) {
-        return 0;
+    public int getStartingTime() {
+        return startingTime;
     }
 
+    public void setStartingTime(int startingTime) {
+        this.startingTime = startingTime;
+    }
 
+    public int getEndingTime() {
+        return endingTime;
+    }
 
+    public void setEndingTime(int endingTime) {
+        this.endingTime = endingTime;
+    }
+
+    public boolean timeOverLap(TimeInterval o) {
+        if ((o.startingTime>= startingTime && o.startingTime<= endingTime)==true ||
+        		(o.endingTime>=startingTime && o.endingTime <= endingTime)==true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+   
 }

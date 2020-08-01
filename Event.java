@@ -3,14 +3,45 @@
  * @author Jyoti Suri, Bella wei, Jennifer yang
  * @Version 1.0
  */
+/**
+ * A Class represents an Event
+ *
+ * @author Jyoti Suri, Bella wei, Jennifer yang
+ * @Version 2.0
+ */
 public class Event {
-    String eventName;
-    int year;
-    int startingMonth;
-    int endingMonth;
-    int startingTime;
-    int endingTime;
+    private String eventName;
+    private int year;
+    private int startingMonth;
+    private int endingMonth;
+    private int startingTime;
+    private int endingTime;
+    private TimeInterval t;
 
+    public Event(String eventName, int year, int startingMonth, int endingMonth, TimeInterval t) {
+        this.eventName = eventName;
+        this.year = year;
+        this.startingMonth = startingMonth;
+        this.endingMonth = endingMonth;
+        this.t = t;
+    }
+
+    public TimeInterval getT() {
+        return t;
+    }
+
+    public void setT(TimeInterval t) {
+        this.t = t;
+    }
+
+    /**
+     * @param eventName
+     * @param year
+     * @param startingMonth
+     * @param endingMonth
+     * @param startingTime
+     * @param endingTime
+     */
     public Event(String eventName, int year, int startingMonth, int endingMonth, int startingTime, int endingTime) {
         this.eventName = eventName;
         this.year = year;
@@ -67,4 +98,5 @@ public class Event {
     public void setEndingTime(int endingTime) {
         this.endingTime = endingTime;
     }
+ 
 }

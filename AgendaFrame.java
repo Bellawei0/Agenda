@@ -1,30 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 /**
  * A class that represents Agenda Frame that allows user to check event based on a period time
+ *
  * @author Jyoti Suri, Bella wei, Jennifer yang
- * @Version 1.0
+ * @Version 2.0
  */
 public class AgendaFrame extends JFrame {
-    public AgendaFrame() throws HeadlessException {
-        JFrame frame = new JFrame("Please Enter Starting Date And Ending Date:  ");
+    private LocalDate startLocalDate;
+    private LocalDate endLocalDate;
+
+    public AgendaFrame(CalendarFrame calendarFrame) {
         JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3, 2));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 100);
+        setVisible(true);
 
-        panel.setLayout(new GridLayout(3,2));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,100);
-        frame.setVisible(true);
-
-        JLabel startDate = new JLabel("Starting Date: ");
-        JTextField startDateInput= new JTextField();
-
-        JLabel endDate = new JLabel("Ending Date: ");
+        JLabel startDate = new JLabel("Start Date(MM/DD/YYYY): ");
+        JTextField startDateInput = new JTextField();
+        JLabel endDate = new JLabel("End Date(MM/DD/YYYY): ");
         JTextField endDateInput = new JTextField();
-
         JButton confirmBtn = new JButton("Confirm");
         JButton cancelBtn = new JButton("Cancel");
-
 
         panel.add(startDate);
         panel.add(startDateInput);
@@ -32,22 +34,34 @@ public class AgendaFrame extends JFrame {
         panel.add(endDateInput);
         panel.add(confirmBtn);
         panel.add(cancelBtn);
-
-        frame.add(panel);
+        add(panel);
 
         // Add actionListener
-        confirmBtn.addActionListener(e -> {
-            System.out.println("Debug: confirmBtn in AgendaFrame");
-            // parse input
-            // Fetch data
-            // Print event
+        confirmBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String startArray[] = startDateInput.getText().split("/");
+                String endArray[] = endDateInput.getText().split("/");
+                int startYear = Integer.parseInt(startArray[2]);
+                int startMonth = Integer.parseInt(startArray[0]);
+                int startDay = Integer.parseInt(startArray[1]);
+                int endYear = Integer.parseInt(endArray[2]);
+                int endMonth = Integer.parseInt(endArray[0]);
+                int endDay = Integer.parseInt(endArray[1]);
 
-        });
-
-        cancelBtn.addActionListener(e -> {
-            frame.dispose();
+                calendarFrame.setStartingDate(LocalDate.of(startYear, startMonth, startDay));
+                calendarFrame.setEndingDate(LocalDate.of(endYear, endMonth, endDay));
+                calendarFrame.displayAgendaView();
+                dispose();
+            }
         });
     }
 
+    public LocalDate getStartLocalDate() {
+        return startLocalDate;
+    }
 
+    public LocalDate getEndLocalDate() {
+        return endLocalDate;
+    }
 }
