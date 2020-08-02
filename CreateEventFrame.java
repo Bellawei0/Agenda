@@ -1,66 +1,127 @@
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 /**
  * A class that represents a frame for creating a new Event
+ *
  * @author Jyoti Suri, Bella wei, Jennifer yang
- * @Version 1.0
+ * @Version 2.0
  */
-public class CreateEventFrame extends JFrame{
-    public CreateEventFrame() {
-        JFrame frame = new JFrame("Create a New Event");
-        JPanel panel = new JPanel();
+public class CreateEventFrame extends JFrame {
+	private DataModel model;
+	private boolean conflict = false;
 
-        panel.setLayout(new GridLayout(7,2));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300,200);
-        frame.setVisible(true);
+	/**
+	 * Constructor of createEventFrame
+	 * Creates a create event frame
+	 * @param model
+	 */
+	public CreateEventFrame(DataModel model) {
+		JFrame frame = new JFrame("Create a New Event");
+		JPanel panel = new JPanel();
 
-        JLabel eventName = new JLabel("Event Name: ");
-        JTextField eventNameInput = new JTextField(15);
+		panel.setLayout(new GridLayout(5, 2));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(400, 200);
+		frame.setVisible(true);
+		frame.setBackground(Color.PINK);
 
-        JLabel startMonth = new JLabel("Starting Month: ");
-        JTextField startMonthInput = new JTextField();
+		JLabel eventName = new JLabel(" Enter an Event Name: ");
+		JTextField eventNameInput = new JTextField(30);
 
-        JLabel endMonth = new JLabel("Ending Month: ");
-        JTextField endMonthInput = new JTextField();
+		JLabel date = new JLabel(" Date (MM/DD/YYYY): ");
+		JTextField dateInput = new JTextField();
 
-        JLabel startTime = new JLabel("Starting Time: ");
-        JTextField startTimeInput= new JTextField();
 
-        JLabel endTime = new JLabel("Ending Time: ");
-        JTextField endTimeInput = new JTextField();
+		JLabel startTime = new JLabel(" Starting Time: ");
+		JTextField startTimeInput = new JTextField();
 
-        JButton saveBtn = new JButton("Save");
-        JButton cancelBtn = new JButton("Cancel");
+		JLabel endTime = new JLabel(" Ending Time: ");
+		JTextField endTimeInput = new JTextField();
 
-        panel.add(eventName);
-        panel.add(eventNameInput);
-        panel.add(startMonth);
-        panel.add(startMonthInput);
-        panel.add(endMonth);
-        panel.add(endMonthInput);
-        panel.add(startTime);
-        panel.add(startTimeInput);
-        panel.add(endTime);
-        panel.add(endTimeInput);
-        panel.add(saveBtn);
-        panel.add(cancelBtn);
+		JButton saveBtn = new JButton("Save");
+		saveBtn.setForeground(Color.BLUE);
+		JButton cancelBtn = new JButton("Cancel");
+		cancelBtn.setForeground(Color.BLUE);
 
-        frame.add(panel);
+		panel.add(eventName);
+		panel.add(eventNameInput);
+		panel.add(date);
+		panel.add(dateInput);
+		panel.add(startTime);
+		panel.add(startTimeInput);
+		panel.add(endTime);
+		panel.add(endTimeInput);
+		panel.add(cancelBtn);
+		panel.add(saveBtn);
+		frame.add(panel);
 
-        // Add actionListener
-        saveBtn.addActionListener(e -> {
-            System.out.println("Debug: I'm here -> saveBtn");
-            // parse input
-            // Check time conflict
-            // Save new event to Model
+		/**
+		 * Save event into data model
+		 */
+		saveBtn.addActionListener(e -> {
+			Event event;
+			TimeInterval timeInterval;
+			System.out.println("Debug in createEventFrame" + model);
+			System.out.println("Debug: I'm here -> saveBtn");
+			String eventN = eventNameInput.getText();
+			String eventDate = dateInput.getText();
+			String startT = startTimeInput.getText();
+			String endT = endTimeInput.getText();
 
-        });
 
-        cancelBtn.addActionListener(e -> {
-            frame.dispose();
-        });
-    }
+			String[] dateArray = eventDate.split("/");
+			int year = Integer.parseInt(dateArray[2]);
+			int month = Integer.parseInt(dateArray[0]);
+			int day = Integer.parseInt(dateArray[1]);
+			int eventStartTime = Integer.parseInt(startT);
+			int eventEndTime = Integer.parseInt(endT);
+
+
+			LocalDateTime dateTime = LocalDateTime.of(year, month, day, eventStartTime, 0);
+			timeInterval = new TimeInterval(eventStartTime, eventEndTime);
+			event = new Event(eventN, year, month, month, timeInterval);
+
+
+			/**
+			 * Checks if there is a conflict
+			 */
+			TreeMap<LocalDateTime, ArrayList<Event>> eventMap = model.getData();
+			for (Entry<LocalDateTime, ArrayList<Event>> entry : eventMap.entrySet()) {
+				ArrayList<Event> events = entry.getValue();
+				LocalDateTime t=  entry.getKey();
+				for (int i = 0; i < events.size(); i++) {	
+					if(t.toLocalDate().equals(dateTime.toLocalDate())) {
+						boolean testConflict = events.get(i).getT().timeOverLap(timeInterval);
+						if (testConflict == true) {
+							JOptionPane.showMessageDialog(frame, "Time Conflict");
+							conflict = true;
+							frame.dispose();
+						}
+
+					}
+
+				}
+				
+			}
+			if (conflict==false) {
+				model.update(dateTime, event);
+				frame.dispose();
+
+			}
+
+		});
+
+		/**
+		 * Exits create event frame 
+		 */
+		cancelBtn.addActionListener(e -> {
+			frame.dispose();
+		});
+	}
 
 }
